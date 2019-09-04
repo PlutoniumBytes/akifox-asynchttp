@@ -40,17 +40,22 @@ class HttpHeaders {
   public function new(headers:Dynamic = null) {
     if (headers == null) return;
 
-    switch (Type.getClassName(Type.getClass(headers))) {
-      case 'com.akifox.asynchttp.HttpHeaders' | 'HttpHeaders':
-        for (key in cast(headers, HttpHeaders).keys()) {
-          add(key, cast(headers, HttpHeaders).get(key));
+	if ( Std.is(headers,HttpHeaders) )
+	{
+		var _httpHeaders = cast(headers, HttpHeaders);
+		 for (key in _httpHeaders.keys()) {
+          add(key, _httpHeaders.get(key));
         }
-      default:
-        for (key in Reflect.fields(headers)) {
+	}
+	else
+	{
+		for (key in Reflect.fields(headers)) 
+		{
           var value = Reflect.getProperty(headers, key);
           add(key, value);
         }
-    }
+	}
+	trace("Huhu");
   }
 
   /**
