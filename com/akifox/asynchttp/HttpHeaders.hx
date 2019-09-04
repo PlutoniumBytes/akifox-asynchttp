@@ -55,7 +55,6 @@ class HttpHeaders {
           add(key, value);
         }
 	}
-	trace("Huhu");
   }
 
   /**
